@@ -1,20 +1,47 @@
 @import "tailwindcss";
 
+/* Skala token diselaraskan dengan referensi neobrutalism di DESIGN.md:
+   radius .25rem + 9999px, shadow 4/8/12px, border 1–4px. */
+@theme {
+  --radius-brutal: 0.25rem;
+}
+
 :root { --background: #f8fafc; --foreground: #111827; --muted: #475569; --cyan: #0ea5e9; --pink: #ea4de6; --green: #22c55e; --purple: #b56bea; --yellow: #facc15; }
 @variant dark (&:where(.dark, .dark *));
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { background: var(--background); color: var(--foreground); font-family: Arial, Helvetica, sans-serif; }
+body { background: var(--background); color: var(--foreground); font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
 .dark body { background: #111827; color: #f8fafc; }
 ::selection { background: #ea4de6; color: #111827; }
-.border-hard { border: 3px solid #000; }
-.shadow-brutal { box-shadow: 5px 5px 0 #000; }
-.shadow-brutal-sm { box-shadow: 3px 3px 0 #000; }
-.section-underline { width: 48px; height: 4px; background: #22c55e; }
+.border-hard { border: 3px solid #000; border-radius: .25rem; }
+.shadow-brutal-sm { box-shadow: 4px 4px 0 #000; }
+.shadow-brutal { box-shadow: 8px 8px 0 #000; }
+.shadow-brutal-lg { box-shadow: 12px 12px 0 #000; }
+.section-underline { width: 48px; height: 4px; background: #22c55e; border-radius: 9999px; }
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
-.social-icon { display: inline-flex; align-items: center; justify-content: center; border: 2px solid #000; padding: .7rem; color: #000; box-shadow: 3px 3px 0 #000; transition: transform .2s, box-shadow .2s; }
-.social-icon:hover { transform: translate(3px, 3px); box-shadow: none; }
-.dark .border-hard, .dark .shadow-brutal, .dark .shadow-brutal-sm { border-color: #e5e7eb; }
-.dark .shadow-brutal, .dark .shadow-brutal-sm { box-shadow: 5px 5px 0 #374151; }
-@media (max-width: 640px) { .shadow-brutal { box-shadow: 3px 3px 0 #000; } }
+.social-icon { display: inline-flex; align-items: center; justify-content: center; border: 2px solid #000; border-radius: .25rem; padding: .7rem; color: #000; box-shadow: 4px 4px 0 #000; transition: transform .2s, box-shadow .2s; }
+.social-icon:hover { transform: translate(4px, 4px); box-shadow: none; }
+/* --- Dark mode ---------------------------------------------------------
+   Referensi membalik border brutalisnya jadi terang di dark mode (dark:border-white).
+   Aturan ini tidak berlapis (unlayered), jadi menang atas utility `border-black`
+   milik Tailwind yang dipakai di puluhan elemen tanpa varian dark.
+
+   Pengecualian `.on-accent`: elemen yang latarnya warna aksen terang (fuchsia,
+   sky, green, gradient). Di sana border hitam justru tetap paling kontras —
+   sama persis seperti di mode terang. Kalau ikut dibalik jadi abu terang,
+   hasilnya malah pudar. */
+.dark .border-black:not(.on-accent),
+.dark .border-hard:not(.on-accent) { border-color: #e5e7eb; }
+
+/* Shadow dinaikkan ke gray-500. Nilai lama (#374151 / gray-700) praktis tak
+   terlihat di atas kartu gray-800, jadi efek "brutal"-nya hilang di dark mode. */
+.dark .shadow-brutal-sm { box-shadow: 4px 4px 0 #6b7280; }
+.dark .shadow-brutal { box-shadow: 8px 8px 0 #6b7280; }
+.dark .shadow-brutal-lg { box-shadow: 12px 12px 0 #6b7280; }
+@media (max-width: 640px) {
+  .shadow-brutal { box-shadow: 5px 5px 0 #000; }
+  .shadow-brutal-lg { box-shadow: 6px 6px 0 #000; }
+  .dark .shadow-brutal { box-shadow: 5px 5px 0 #6b7280; }
+  .dark .shadow-brutal-lg { box-shadow: 6px 6px 0 #6b7280; }
+}
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }

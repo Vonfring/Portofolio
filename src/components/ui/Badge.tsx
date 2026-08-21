@@ -1,2 +1,2 @@
 import type { ReactNode } from "react";
-export function Badge({ children, variant = "default" }: { children: ReactNode; variant?: "default" | "green" }) { return <span className={`mono inline-block border-2 border-black px-2.5 py-1 text-xs font-bold ${variant === "green" ? "bg-green-300" : "bg-white"}`}>{children}</span>; }
+export function Badge({ children, variant = "default" }: { children: ReactNode; variant?: "default" | "green" }) { return <span className={`mono inline-block rounded-full border-2 border-black px-3 py-1 text-xs font-bold ${variant === "green" ? "on-accent bg-green-300 text-black" : "bg-white text-black dark:bg-gray-700 dark:text-gray-100"}`}>{children}</span>; }
