@@ -33,15 +33,15 @@ body { background: var(--background); color: var(--foreground); font-family: ui-
 .dark .border-black:not(.on-accent),
 .dark .border-hard:not(.on-accent) { border-color: #e5e7eb; }
 
-/* Shadow dinaikkan ke gray-500. Nilai lama (#374151 / gray-700) praktis tak
-   terlihat di atas kartu gray-800, jadi efek "brutal"-nya hilang di dark mode. */
-.dark .shadow-brutal-sm { box-shadow: 4px 4px 0 #6b7280; }
-.dark .shadow-brutal { box-shadow: 8px 8px 0 #6b7280; }
-.dark .shadow-brutal-lg { box-shadow: 12px 12px 0 #6b7280; }
+/* Di dark mode shadow dimatikan total — blok offset abu terlihat kotor di atas
+   latar gelap. Kedalaman dipikul sepenuhnya oleh border terang di atas.
+   Selektor `.dark .*` (0,2,0) mengalahkan override mobile (0,1,0) di bawah
+   berdasarkan spesifisitas, jadi dark mode tetap tanpa shadow di layar kecil. */
+.dark .shadow-brutal-sm,
+.dark .shadow-brutal,
+.dark .shadow-brutal-lg { box-shadow: none; }
 @media (max-width: 640px) {
   .shadow-brutal { box-shadow: 5px 5px 0 #000; }
   .shadow-brutal-lg { box-shadow: 6px 6px 0 #000; }
-  .dark .shadow-brutal { box-shadow: 5px 5px 0 #6b7280; }
-  .dark .shadow-brutal-lg { box-shadow: 6px 6px 0 #6b7280; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }

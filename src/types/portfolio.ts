@@ -10,3 +10,4 @@ export interface Experience { role: string; company: string; period: string; des
  *  dirender inline oleh Chrome Android, jadi tidak dipakai sebagai preview. */
 export interface Certificate { title: string; issuer: string; date: string; description?: string; skills: string[]; image: string; thumbnail?: string; url?: string; accentColor?: string; }
 export interface Education { institution: string; program: string; period: string; }
+export interface Pillar { title: string; description: string; color: string; icon: LucideIcon; }
